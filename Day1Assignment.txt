@@ -1,0 +1,530 @@
+
+ak@ak:~$ start-all.sh
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /home/ak/hadoop-2.10.1/logs/hadoop-ak-namenode-ak.out
+localhost: starting datanode, logging to /home/ak/hadoop-2.10.1/logs/hadoop-ak-datanode-ak.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/ak/hadoop-2.10.1/logs/hadoop-ak-secondarynamenode-ak.out
+starting yarn daemons
+starting resourcemanager, logging to /home/ak/hadoop-2.10.1/logs/yarn-ak-resourcemanager-ak.out
+localhost: starting nodemanager, logging to /home/ak/hadoop-2.10.1/logs/yarn-ak-nodemanager-ak.out
+ak@ak:~$ jps
+2996 SecondaryNameNode
+2790 DataNode
+3129 ResourceManager
+3273 NodeManager
+2605 NameNode
+3599 Jps
+
+ak@ak:~$ hdfs dfs -mkdir /varun 
+
+ak@ak:~$ hdfs dfs -copyFromLocal /home/ak/datasets/emp.csv /varun
+
+ak@ak:~$ hdfs dfs -put -f /home/ak/datasets/emp.csv /varun
+ak@ak:~$ hdfs dfs -mkdir day1
+ak@ak:~$ cd /
+ak@ak:/$ pwd
+/
+ak@ak:/$ cd
+ak@ak:~$ pwd
+/home/ak
+ak@ak:~$ cd /
+ak@ak:/$ pwd
+/
+ak@ak:/$ hdfs dfs -setrep 2  /varun/emp.csv
+Replication 2 set: /varun/emp.csv
+ak@ak:/$ hdfs dfs -setrep 3  /varun/emp.csv
+Replication 3 set: /varun/emp.csv
+
+ak@ak:/$ hdfs dfs -put /home/ak/hadoop-2.10.1.zip day1
+
+ak@ak:/$ hdfs dfs -put /home/ak/hadoop-2.10.1.zip /varun
+
+ak@ak:/$ hdfs dfs -ls /
+Found 4 items
+drwxr-xr-x   - ak supergroup          0 2021-10-30 13:38 /demo
+drwx-wx-wx   - ak supergroup          0 2021-10-30 15:09 /tmp
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:07 /user
+drwxr-xr-x   - ak supergroup          0 2021-11-08 15:18 /varun
+ak@ak:/$ hdfs dfs -rm /varun/emp.csv
+Deleted /varun/emp.csv
+ak@ak:/$ hdfs dfs -rm -R /varun/
+Deleted /varun
+
+ak@ak:/$ hdfs dfs -ls -R  / 
+drwxr-xr-x   - ak supergroup          0 2021-10-30 13:38 /demo
+drwx-wx-wx   - ak supergroup          0 2021-10-30 15:09 /tmp
+drwx------   - ak supergroup          0 2021-10-30 15:09 /tmp/hadoop-yarn
+drwx------   - ak supergroup          0 2021-10-30 15:10 /tmp/hadoop-yarn/staging
+drwx------   - ak supergroup          0 2021-10-30 15:09 /tmp/hadoop-yarn/staging/ak
+drwx------   - ak supergroup          0 2021-10-30 15:12 /tmp/hadoop-yarn/staging/ak/.staging
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:10 /tmp/hadoop-yarn/staging/history
+drwxrwxrwt   - ak supergroup          0 2021-10-30 15:10 /tmp/hadoop-yarn/staging/history/done_intermediate
+drwxrwx---   - ak supergroup          0 2021-10-30 15:12 /tmp/hadoop-yarn/staging/history/done_intermediate/ak
+-rwxrwx---   1 ak supergroup      40187 2021-10-30 15:12 /tmp/hadoop-yarn/staging/history/done_intermediate/ak/job_1635578590450_0001-1635586777095-ak-insert+into+geoemp+values+%281%2C%27Arjun%27%2C600-1635586935526-1-1-SUCCEEDED-default-1635586851886.jhist
+-rwxrwx---   1 ak supergroup        391 2021-10-30 15:12 /tmp/hadoop-yarn/staging/history/done_intermediate/ak/job_1635578590450_0001.summary
+-rwxrwx---   1 ak supergroup     367560 2021-10-30 15:12 /tmp/hadoop-yarn/staging/history/done_intermediate/ak/job_1635578590450_0001_conf.xml
+drwx-wx-wx   - ak supergroup          0 2021-10-30 15:19 /tmp/hive
+drwx-wx-wx   - ak supergroup          0 2021-10-30 16:19 /tmp/hive/_resultscache_
+drwx------   - ak supergroup          0 2021-10-30 16:19 /tmp/hive/ak
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:07 /user
+drwxr-xr-x   - ak supergroup          0 2021-11-08 14:45 /user/ak
+drwxr-xr-x   - ak supergroup          0 2021-11-08 15:06 /user/ak/day1
+-rw-r--r--   1 ak supergroup  450619545 2021-11-08 15:06 /user/ak/day1/hadoop-2.10.1.zip
+drwxr-xr-x   - ak supergroup          0 2021-10-30 13:38 /user/ak/test
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:07 /user/hive
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:07 /user/hive/warehouse
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:08 /user/hive/warehouse/ak.db
+drwxr-xr-x   - ak supergroup          0 2021-10-30 15:12 /user/hive/warehouse/ak.db/geoemp
+-rw-r--r--   1 ak supergroup         13 2021-10-30 15:11 /user/hive/warehouse/ak.db/geoemp/000000_0
+ak@ak:/$ hdfs dfs -ls -R 
+drwxr-xr-x   - ak supergroup          0 2021-11-08 15:06 day1
+-rw-r--r--   1 ak supergroup  450619545 2021-11-08 15:06 day1/hadoop-2.10.1.zip
+drwxr-xr-x   - ak supergroup          0 2021-10-30 13:38 test
+ak@ak:/$ hdfs dfs -cp /varun/ /ak
+cp: `/varun/': No such file or directory
+ak@ak:/$ hdfs dfs -cp /varun /ak
+cp: `/varun': No such file or directory
+ak@ak:/$ hdfs dfs -mkdir /varun
+ak@ak:/$ hdfs dfs -cp /varun/ /ak
+ak@ak:/$ hdfs dfs -put /home/ak/datasets/superstore.csv /varun
+ak@ak:/$ pwd
+/
+ak@ak:/$ cd 
+ak@ak:~$ pwd
+/home/ak
+ak@ak:~$ hdfs dfs -appendToFile /home/ak/hadoop-2.10.1.zip /varun/zoomlocal.mp4 ak@ak:~$ hdfs dfs -put /home/ak/hadoop-2.10.1.zip /varun
+ak@ak:~$ hdfs dfs -get /varun/superstore.csv getstore.txt
+
+ak@ak:~$ hdfs dfs -put getstore.txt /ak/store.csv
+
+ak@ak:~$ cd /
+ak@ak:/$ pwd
+/
+
+ak@ak:/$ cd
+ak@ak:~$ pwd
+/home/ak
+ak@ak:~$ mkdir -p a/b/c
+ak@ak:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ak/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ak/hadoop-2.10.1/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 637cc225-4f65-46e1-a58c-9264ee1ff4b1
+
+Logging initialized using configuration in jar:file:/home/ak/apache-hive-3.1.2-bin/lib/hive-common-3.1.2.jar!/hive-log4j2.properties Async: true
+Hive Session ID = 701bd301-0ab7-47fd-98ba-4107dee4af02
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+
+
+ak@ak:/$ hdfs dfs -mkdir /varun
+ak@ak:/$ hdfs dfs -cp /varun/ /ak
+ak@ak:/$ hdfs dfs -put /home/ak/datasets/superstore.csv /varun
+ak@ak:/$ pwd
+/
+ak@ak:/$ cd 
+ak@ak:~$ pwd
+/home/ak
+ak@ak:~$ hdfs dfs -appendToFile /home/ak/hadoop-2.10.1.zip /varun/zoomlocal.mp4 ak@ak:~$ hdfs dfs -put /home/ak/hadoop-2.10.1.zip /varun
+ak@ak:~$ hdfs dfs -get /varun/superstore.csv getstore.txt
+ak@ak:~$ hdfs dfs -put getstore.xt /ak/store.csv
+put: `getstore.xt': No such file or directory
+ak@ak:~$ hdfs dfs -put getstore.txt /ak/store.csv
+
+a
+Try 'mkdir --help' for more information.
+
+
+ak@ak:~$ mkdir -p a/b/c
+ak@ak:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ak/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ak/hadoop-2.10.1/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = 637cc225-4f65-46e1-a58c-9264ee1ff4b1
+
+Logging initialized using configuration in jar:file:/home/ak/apache-hive-3.1.2-bin/lib/hive-common-3.1.2.jar!/hive-log4j2.properties Async: true
+Hive Session ID = 701bd301-0ab7-47fd-98ba-4107dee4af02
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+
+hive> show databases;
+OK
+ak
+default
+Time taken: 0.192 seconds, Fetched: 2 row(s)
+hive> create database ofsa;
+OK
+Time taken: 0.149 seconds
+hive> use ofsa;
+OK
+Time taken: 0.022 seconds
+hive> create table (reno int,name string,cgpa int);
+NoViableAltException(361@[212:1: tableName : (db= identifier DOT tab= identifier -> ^( TOK_TABNAME $db $tab) |tab= identifier -> ^( TOK_TABNAME $tab) );])
+	at org.antlr.runtime.DFA.noViableAlt(DFA.java:158)
+	at org.antlr.runtime.DFA.predict(DFA.java:116)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.tableName(HiveParser_FromClauseParser.java:4513)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.tableName(HiveParser.java:45148)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.createTableStatement(HiveParser.java:6530)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:4295)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2494)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:244)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:158)
+FAILED: ParseException line 1:13 cannot recognize input near '(' 'reno' 'int' in table name
+hive> create table student (regno int,name string,cgpa int);
+OK
+Time taken: 0.485 seconds
+hive> insert into student values(1,'Arjun',5);
+Query ID = ak_20211108170805_9b2baf6a-b0d4-4bc6-abfd-2c175c85b2f0
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1636353785170_0001, Tracking URL = http://ak:8088/proxy/application_1636353785170_0001/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-11-08 17:08:17,026 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 17:08:22,227 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.78 sec
+2021-11-08 17:08:27,372 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.89 sec
+MapReduce Total cumulative CPU time: 2 seconds 890 msec
+Ended Job = job_1636353785170_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://localhost:9000/user/hive/warehouse/ofsa.db/student/.hive-staging_hive_2021-11-08_17-08-05_596_4825396035265992589-1/-ext-10000
+Loading data to table ofsa.student
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 2.89 sec   HDFS Read: 16446 HDFS Write: 271 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 890 msec
+OK
+Time taken: 23.4 seconds
+hive> select * from student;
+OK
+1	Arjun	5
+Time taken: 0.261 seconds, Fetched: 1 row(s)
+hive> show tables;
+OK
+student
+Time taken: 0.025 seconds, Fetched: 1 row(s)
+hive> desc student;
+OK
+regno               	int                 	                    
+name                	string              	                    
+cgpa                	int                 	                    
+Time taken: 0.056 seconds, Fetched: 3 row(s)
+hive> desc extended student;
+OK
+regno               	int                 	                    
+name                	string              	                    
+cgpa                	int                 	                    
+	 	 
+Detailed Table Information	Table(tableName:student, dbName:ofsa, owner:ak, createTime:1636371366, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:regno, type:int, comment:null), FieldSchema(name:name, type:string, comment:null), FieldSchema(name:cgpa, type:int, comment:null)], location:hdfs://localhost:9000/user/hive/warehouse/ofsa.db/student, inputFormat:org.apache.hadoop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=1}), bucketCols:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skewedColValueLocationMaps:{}), storedAsSubDirectories:false), partitionKeys:[], parameters:{totalSize=10, numRows=1, rawDataSize=9, COLUMN_STATS_ACCURATE={\"BASIC_STATS\":\"true\",\"COLUMN_STATS\":{\"cgpa\":\"true\",\"name\":\"true\",\"regno\":\"true\"}}, numFiles=1, transient_lastDdlTime=1636371508, bucketing_version=2}, viewOriginalText:null, viewExpandedText:null, tableType:MANAGED_TABLE, rewriteEnabled:false, catName:hive, ownerType:USER)	
+Time taken: 0.078 seconds, Fetched: 5 row(s)
+ak@ak:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ak/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ak/hadoop-2.10.1/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = b83ce138-89c4-4695-af2a-34412248cedb
+
+Logging initialized using configuration in jar:file:/home/ak/apache-hive-3.1.2-bin/lib/hive-common-3.1.2.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Hive Session ID = 010a340c-ec2f-431b-ade8-472b2a93dff8
+hive> show database;
+NoViableAltException(84@[917:1: ddlStatement : ( createDatabaseStatement | switchDatabaseStatement | dropDatabaseStatement | createTableStatement | dropTableStatement | truncateTableStatement | alterStatement | descStatement | showStatement | metastoreCheck | createViewStatement | createMaterializedViewStatement | dropViewStatement | dropMaterializedViewStatement | createFunctionStatement | createMacroStatement | dropFunctionStatement | reloadFunctionStatement | dropMacroStatement | analyzeStatement | lockStatement | unlockStatement | lockDatabase | unlockDatabase | createRoleStatement | dropRoleStatement | ( grantPrivileges )=> grantPrivileges | ( revokePrivileges )=> revokePrivileges | showGrants | showRoleGrants | showRolePrincipals | showRoles | grantRole | revokeRole | setRole | showCurrentRole | abortTransactionStatement | killQueryStatement | resourcePlanDdlStatements );])
+	at org.antlr.runtime.DFA.noViableAlt(DFA.java:158)
+	at org.antlr.runtime.DFA.predict(DFA.java:116)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:4244)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2494)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:244)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:158)
+FAILED: ParseException line 1:5 cannot recognize input near 'show' 'database' '<EOF>' in ddl statement
+hive> use ofsa;
+OK
+Time taken: 0.09 seconds
+hive> show tables;
+OK
+student
+Time taken: 0.134 seconds, Fetched: 1 row(s)
+hive> 
+hive> create table patient(pid INT, pname STRING, drug STRING,gender string, 
+    > tot_amt INT) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.555 seconds
+
+hive> select count(*) from patient;
+OK
+0
+Time taken: 1.391 seconds, Fetched: 1 row(s)
+
+hive> load data local inpath '/home/ak/datasets/patient.txt' into table patient;
+Loading data to table ofsa.patient
+OK
+Time taken: 0.583 seconds
+hive> select count(*) from patient;
+Query ID = ak_20211108173726_1728dd56-0bd9-476a-abcf-5b94a5675410
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1636353785170_0002, Tracking URL = http://ak:8088/proxy/application_1636353785170_0002/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-11-08 17:37:33,533 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 17:37:38,719 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.08 sec
+2021-11-08 17:37:42,875 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.23 sec
+MapReduce Total cumulative CPU time: 2 seconds 230 msec
+Ended Job = job_1636353785170_0002
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 2.23 sec   HDFS Read: 13145 HDFS Write: 102 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 230 msec
+OK
+27
+Time taken: 18.41 seconds, Fetched: 1 row(s)
+hive> select * from patient;
+OK
+111	aaa	Para	m	900
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+Time taken: 0.187 seconds, Fetched: 27 row(s)
+  
+select * from patient;
+OK
+111	aaa	Para	m	900
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+111	aaa	metacin	m	800
+222	bbb	Crocin	f	600
+222	bbb	Para	f	999
+333	ccc	calpol	f	500
+444	ddd	hcq	m	500
+111	aaa	hcq	m	600
+555	eee	cetzine	m	700
+333	ccc	Para	m	444
+Time taken: 1.756 seconds, Fetched: 27 row(s)
+hive> select count(*) from patient;
+Query ID = ak_20211108232157_fd3a7571-d808-4a88-b65f-28a401062762
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1636353785170_0003, Tracking URL = http://ak:8088/proxy/application_1636353785170_0003/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-11-08 23:22:07,976 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 23:22:13,156 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.31 sec
+2021-11-08 23:22:17,279 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.4 sec
+MapReduce Total cumulative CPU time: 2 seconds 400 msec
+Ended Job = job_1636353785170_0003
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 2.4 sec   HDFS Read: 13145 HDFS Write: 102 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 400 msec
+OK
+27
+Time taken: 20.843 seconds, Fetched: 1 row(s)
+hive> select * from patient where drug='Para'
+    > ;
+OK
+111	aaa	Para	m	900
+222	bbb	Para	f	999
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+222	bbb	Para	f	999
+333	ccc	Para	m	444
+111	aaa	Para	m	500
+222	bbb	Para	f	999
+333	ccc	Para	m	444
+Time taken: 0.201 seconds, Fetched: 9 row(s)
+hive> select sum(amt) from patient;
+FAILED: SemanticException [Error 10004]: Line 1:11 Invalid table alias or column reference 'amt': (possible column names are: pid, pname, drug, gender, tot_amt)
+hive> select sum(tot_amt) from patient;
+Query ID = ak_20211108232505_081b74bd-e739-49da-96dd-5b6bfbf71d31
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1636353785170_0004, Tracking URL = http://ak:8088/proxy/application_1636353785170_0004/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0004
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-11-08 23:25:10,955 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 23:25:15,055 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.06 sec
+2021-11-08 23:25:20,175 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.14 sec
+MapReduce Total cumulative CPU time: 2 seconds 140 msec
+Ended Job = job_1636353785170_0004
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 2.14 sec   HDFS Read: 13469 HDFS Write: 105 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 140 msec
+OK
+17329
+Time taken: 16.016 seconds, Fetched: 1 row(s)
+hive> select drug,sum(tot_amt) from patient
+    > group by drug;
+Query ID = ak_20211108232558_9d8c4878-0c0f-4005-9e8a-f17e3848a6b1
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1636353785170_0005, Tracking URL = http://ak:8088/proxy/application_1636353785170_0005/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0005
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-11-08 23:26:04,493 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 23:26:08,585 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.93 sec
+2021-11-08 23:26:12,709 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.91 sec
+MapReduce Total cumulative CPU time: 1 seconds 910 msec
+Ended Job = job_1636353785170_0005
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 1.91 sec   HDFS Read: 13955 HDFS Write: 228 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 910 msec
+OK
+Crocin	1800
+Para	6229
+calpol	1500
+cetzine	2100
+hcq	3300
+metacin	2400
+Time taken: 15.893 seconds, Fetched: 6 row(s)
+hive> insert overwrite local directory '/home/ak/results' select * from patient;
+Query ID = ak_20211108232644_13b84885-8214-4ae9-81e5-67a8f70c05b6
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1636353785170_0006, Tracking URL = http://ak:8088/proxy/application_1636353785170_0006/
+Kill Command = /home/ak/hadoop-2.10.1/bin/mapred job  -kill job_1636353785170_0006
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2021-11-08 23:26:48,943 Stage-1 map = 0%,  reduce = 0%
+2021-11-08 23:26:53,064 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.02 sec
+MapReduce Total cumulative CPU time: 1 seconds 20 msec
+Ended Job = job_1636353785170_0006
+Moving data to local directory /home/ak/results
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 1.02 sec   HDFS Read: 5631 HDFS Write: 537 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 20 msec
+OK
+Time taken: 10.686 seconds
+hive> desc patient;
+OK
+pid                 	int                 	                    
+pname               	string              	                    
+drug                	string              	                    
+gender              	string              	                    
+tot_amt             	int                 	                    
+Time taken: 0.072 seconds, Fetched: 5 row(s)
+hive> desc extended patient;
+OK
+pid                 	int                 	                    
+pname               	string              	                    
+drug                	string              	                    
+gender              	string              	                    
+tot_amt             	int                 	                    
+	 	 
+Detailed Table Information	Table(tableName:patient, dbName:ofsa, owner:ak, createTime:1636372949, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:pid, type:int, comment:null), FieldSchema(name:pname, type:string, comment:null), FieldSchema(name:drug, type:string, comment:null), FieldSchema(name:gender, type:string, comment:null), FieldSchema(name:tot_amt, type:int, comment:null)], location:hdfs://localhost:9000/user/hive/warehouse/ofsa.db/patient, inputFormat:org.apache.hadoop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=,, field.delim=,}), bucketCols:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skewedColValueLocationMaps:{}), storedAsSubDirectories:false), partitionKeys:[], parameters:{totalSize=537, numRows=0, rawDataSize=0, numFiles=1, transient_lastDdlTime=1636373212, bucketing_version=2}, viewOriginalText:null, viewExpandedText:null, tableType:MANAGED_TABLE, rewriteEnabled:false, catName:hive, ownerType:USER)	
+Time taken: 0.065 seconds, Fetched: 7 row(s)
